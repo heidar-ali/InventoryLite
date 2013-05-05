@@ -1,3 +1,5 @@
 *.dotCover
 /Inventory.vsmdi
 /LocalTestRun.testrunconfig
+bin
+obj
