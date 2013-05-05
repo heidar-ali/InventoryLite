@@ -1,0 +1,3 @@
+*.dotCover
+/Inventory.vsmdi
+/LocalTestRun.testrunconfig

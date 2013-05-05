@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "Inventory", "Inventory\Inventory.vbproj", "{CBF0BA6A-6C7E-4BE5-9F54-B8F3D3E48A0C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{D2496B2C-16E7-4127-AE56-BF01C7C4F553}"
+	ProjectSection(SolutionItems) = preProject
+		Inventory.vsmdi = Inventory.vsmdi
+		LocalTestRun.testrunconfig = LocalTestRun.testrunconfig
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBF0BA6A-6C7E-4BE5-9F54-B8F3D3E48A0C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBF0BA6A-6C7E-4BE5-9F54-B8F3D3E48A0C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBF0BA6A-6C7E-4BE5-9F54-B8F3D3E48A0C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBF0BA6A-6C7E-4BE5-9F54-B8F3D3E48A0C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

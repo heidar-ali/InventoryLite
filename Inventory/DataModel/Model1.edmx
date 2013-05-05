@@ -1,0 +1,321 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="1.0" xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="InventoryModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2005" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2006/04/edm/ssdl">
+        <EntityContainer Name="InventoryModelStoreContainer">
+          <EntitySet Name="Barang" EntityType="InventoryModel.Store.Barang" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Customer" EntityType="InventoryModel.Store.Customer" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PenerimaanBarang" EntityType="InventoryModel.Store.PenerimaanBarang" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="PengeluaranBarang" EntityType="InventoryModel.Store.PengeluaranBarang" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Supplier" EntityType="InventoryModel.Store.Supplier" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_PenerimaanBarang_Barang" Association="InventoryModel.Store.FK_PenerimaanBarang_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="PenerimaanBarang" EntitySet="PenerimaanBarang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PenerimaanBarang_Supplier" Association="InventoryModel.Store.FK_PenerimaanBarang_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="PenerimaanBarang" EntitySet="PenerimaanBarang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PengeluaranBarang_Barang" Association="InventoryModel.Store.FK_PengeluaranBarang_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="PengeluaranBarang" EntitySet="PengeluaranBarang" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PengeluaranBarang_Customer" Association="InventoryModel.Store.FK_PengeluaranBarang_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="PengeluaranBarang" EntitySet="PengeluaranBarang" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Barang">
+          <Key>
+            <PropertyRef Name="Kode_Barang" />
+          </Key>
+          <Property Name="Kode_Barang" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="Nama_Barang" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Stock_Barang" Type="int" Nullable="false" />
+          <Property Name="Harga_Barang" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Kode_Customer" />
+          </Key>
+          <Property Name="Kode_Customer" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="Nama_Customer" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Alamat" Type="varchar" MaxLength="100" />
+          <Property Name="Telephone" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="PenerimaanBarang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="No_Invoice" Type="varchar" Nullable="false" MaxLength="24" />
+          <Property Name="Tanggal" Type="datetime" Nullable="false" />
+          <Property Name="Kode_Barang" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="Jumlah" Type="int" Nullable="false" />
+          <Property Name="Kode_Supplier" Type="varchar" Nullable="false" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="PengeluaranBarang">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="No_Dokumen" Type="varchar" Nullable="false" MaxLength="24" />
+          <Property Name="Tanggal" Type="datetime" Nullable="false" />
+          <Property Name="Kode_Barang" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="Jumlah" Type="int" Nullable="false" />
+          <Property Name="Kode_Customer" Type="varchar" Nullable="false" MaxLength="8" />
+        </EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Kode_Supplier" />
+          </Key>
+          <Property Name="Kode_Supplier" Type="varchar" Nullable="false" MaxLength="8" />
+          <Property Name="Nama_Supplier" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Alamat" Type="varchar" MaxLength="100" />
+          <Property Name="Telepon" Type="varchar" MaxLength="15" />
+          <Property Name="Email" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_PenerimaanBarang_Barang">
+          <End Role="Barang" Type="InventoryModel.Store.Barang" Multiplicity="1" />
+          <End Role="PenerimaanBarang" Type="InventoryModel.Store.PenerimaanBarang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="Kode_Barang" />
+            </Principal>
+            <Dependent Role="PenerimaanBarang">
+              <PropertyRef Name="Kode_Barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PenerimaanBarang_Supplier">
+          <End Role="Supplier" Type="InventoryModel.Store.Supplier" Multiplicity="1" />
+          <End Role="PenerimaanBarang" Type="InventoryModel.Store.PenerimaanBarang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Supplier">
+              <PropertyRef Name="Kode_Supplier" />
+            </Principal>
+            <Dependent Role="PenerimaanBarang">
+              <PropertyRef Name="Kode_Supplier" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PengeluaranBarang_Barang">
+          <End Role="Barang" Type="InventoryModel.Store.Barang" Multiplicity="1" />
+          <End Role="PengeluaranBarang" Type="InventoryModel.Store.PengeluaranBarang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Barang">
+              <PropertyRef Name="Kode_Barang" />
+            </Principal>
+            <Dependent Role="PengeluaranBarang">
+              <PropertyRef Name="Kode_Barang" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PengeluaranBarang_Customer">
+          <End Role="Customer" Type="InventoryModel.Store.Customer" Multiplicity="1" />
+          <End Role="PengeluaranBarang" Type="InventoryModel.Store.PengeluaranBarang" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Kode_Customer" />
+            </Principal>
+            <Dependent Role="PengeluaranBarang">
+              <PropertyRef Name="Kode_Customer" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="InventoryModel" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2006/04/edm">
+        <EntityContainer Name="InventoryArcomaBascoEntities2">
+          <EntitySet Name="Barang" EntityType="InventoryModel.Barang" />
+          <EntitySet Name="Customer" EntityType="InventoryModel.Customer" />
+          <EntitySet Name="PenerimaanBarang" EntityType="InventoryModel.PenerimaanBarang" />
+          <EntitySet Name="PengeluaranBarang" EntityType="InventoryModel.PengeluaranBarang" />
+          <EntitySet Name="Supplier" EntityType="InventoryModel.Supplier" />
+          <AssociationSet Name="FK_PenerimaanBarang_Barang" Association="InventoryModel.FK_PenerimaanBarang_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="PenerimaanBarang" EntitySet="PenerimaanBarang" /></AssociationSet>
+          <AssociationSet Name="FK_PengeluaranBarang_Barang" Association="InventoryModel.FK_PengeluaranBarang_Barang">
+            <End Role="Barang" EntitySet="Barang" />
+            <End Role="PengeluaranBarang" EntitySet="PengeluaranBarang" /></AssociationSet>
+          <AssociationSet Name="FK_PengeluaranBarang_Customer" Association="InventoryModel.FK_PengeluaranBarang_Customer">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="PengeluaranBarang" EntitySet="PengeluaranBarang" /></AssociationSet>
+          <AssociationSet Name="FK_PenerimaanBarang_Supplier" Association="InventoryModel.FK_PenerimaanBarang_Supplier">
+            <End Role="Supplier" EntitySet="Supplier" />
+            <End Role="PenerimaanBarang" EntitySet="PenerimaanBarang" /></AssociationSet></EntityContainer>
+        <EntityType Name="Barang">
+          <Key>
+            <PropertyRef Name="Kode_Barang" /></Key>
+          <Property Name="Kode_Barang" Type="String" Nullable="false" />
+          <Property Name="Nama_Barang" Type="String" Nullable="false" />
+          <Property Name="Stock_Barang" Type="Int32" Nullable="false" />
+          <Property Name="Harga_Barang" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="PenerimaanBarang" Relationship="InventoryModel.FK_PenerimaanBarang_Barang" FromRole="Barang" ToRole="PenerimaanBarang" />
+          <NavigationProperty Name="PengeluaranBarang" Relationship="InventoryModel.FK_PengeluaranBarang_Barang" FromRole="Barang" ToRole="PengeluaranBarang" /></EntityType>
+        <EntityType Name="Customer">
+          <Key>
+            <PropertyRef Name="Kode_Customer" /></Key>
+          <Property Name="Kode_Customer" Type="String" Nullable="false" />
+          <Property Name="Nama_Customer" Type="String" Nullable="false" />
+          <Property Name="Alamat" Type="String" Nullable="true" />
+          <Property Name="Telephone" Type="String" Nullable="true" />
+          <Property Name="Email" Type="String" Nullable="true" />
+          <NavigationProperty Name="PengeluaranBarang" Relationship="InventoryModel.FK_PengeluaranBarang_Customer" FromRole="Customer" ToRole="PengeluaranBarang" /></EntityType>
+        <EntityType Name="PenerimaanBarang">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="No_Invoice" Type="String" Nullable="false" />
+          <Property Name="Tanggal" Type="DateTime" Nullable="false" />
+          <Property Name="Jumlah" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="InventoryModel.FK_PenerimaanBarang_Barang" FromRole="PenerimaanBarang" ToRole="Barang" />
+          <NavigationProperty Name="Supplier" Relationship="InventoryModel.FK_PenerimaanBarang_Supplier" FromRole="PenerimaanBarang" ToRole="Supplier" /></EntityType>
+        <EntityType Name="PengeluaranBarang">
+          <Key>
+            <PropertyRef Name="Id" /></Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="No_Dokumen" Type="String" Nullable="false" />
+          <Property Name="Tanggal" Type="DateTime" Nullable="false" />
+          <Property Name="Jumlah" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Barang" Relationship="InventoryModel.FK_PengeluaranBarang_Barang" FromRole="PengeluaranBarang" ToRole="Barang" />
+          <NavigationProperty Name="Customer" Relationship="InventoryModel.FK_PengeluaranBarang_Customer" FromRole="PengeluaranBarang" ToRole="Customer" /></EntityType>
+        <EntityType Name="Supplier">
+          <Key>
+            <PropertyRef Name="Kode_Supplier" /></Key>
+          <Property Name="Kode_Supplier" Type="String" Nullable="false" />
+          <Property Name="Nama_Supplier" Type="String" Nullable="false" />
+          <Property Name="Alamat" Type="String" Nullable="true" />
+          <Property Name="Telepon" Type="String" Nullable="true" />
+          <Property Name="Email" Type="String" Nullable="true" />
+          <NavigationProperty Name="PenerimaanBarang" Relationship="InventoryModel.FK_PenerimaanBarang_Supplier" FromRole="Supplier" ToRole="PenerimaanBarang" /></EntityType>
+        <Association Name="FK_PenerimaanBarang_Barang">
+          <End Type="InventoryModel.Barang" Role="Barang" Multiplicity="1" />
+          <End Type="InventoryModel.PenerimaanBarang" Role="PenerimaanBarang" Multiplicity="*" /></Association>
+        <Association Name="FK_PengeluaranBarang_Barang">
+          <End Type="InventoryModel.Barang" Role="Barang" Multiplicity="1" />
+          <End Type="InventoryModel.PengeluaranBarang" Role="PengeluaranBarang" Multiplicity="*" /></Association>
+        <Association Name="FK_PengeluaranBarang_Customer">
+          <End Type="InventoryModel.Customer" Role="Customer" Multiplicity="1" />
+          <End Type="InventoryModel.PengeluaranBarang" Role="PengeluaranBarang" Multiplicity="*" /></Association>
+        <Association Name="FK_PenerimaanBarang_Supplier">
+          <End Type="InventoryModel.Supplier" Role="Supplier" Multiplicity="1" />
+          <End Type="InventoryModel.PenerimaanBarang" Role="PenerimaanBarang" Multiplicity="*" /></Association></Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="urn:schemas-microsoft-com:windows:storage:mapping:CS">
+        <EntityContainerMapping StorageEntityContainer="InventoryModelStoreContainer" CdmEntityContainer="InventoryArcomaBascoEntities2">
+          <EntitySetMapping Name="Barang">
+            <EntityTypeMapping TypeName="IsTypeOf(InventoryModel.Barang)">
+              <MappingFragment StoreEntitySet="Barang">
+                <ScalarProperty Name="Harga_Barang" ColumnName="Harga_Barang" />
+                <ScalarProperty Name="Stock_Barang" ColumnName="Stock_Barang" />
+                <ScalarProperty Name="Nama_Barang" ColumnName="Nama_Barang" />
+                <ScalarProperty Name="Kode_Barang" ColumnName="Kode_Barang" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Customer">
+            <EntityTypeMapping TypeName="IsTypeOf(InventoryModel.Customer)">
+              <MappingFragment StoreEntitySet="Customer">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="Nama_Customer" ColumnName="Nama_Customer" />
+                <ScalarProperty Name="Kode_Customer" ColumnName="Kode_Customer" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PenerimaanBarang">
+            <EntityTypeMapping TypeName="IsTypeOf(InventoryModel.PenerimaanBarang)">
+              <MappingFragment StoreEntitySet="PenerimaanBarang">
+                <ScalarProperty Name="Jumlah" ColumnName="Jumlah" />
+                <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
+                <ScalarProperty Name="No_Invoice" ColumnName="No_Invoice" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="PengeluaranBarang">
+            <EntityTypeMapping TypeName="IsTypeOf(InventoryModel.PengeluaranBarang)">
+              <MappingFragment StoreEntitySet="PengeluaranBarang">
+                <ScalarProperty Name="Jumlah" ColumnName="Jumlah" />
+                <ScalarProperty Name="Tanggal" ColumnName="Tanggal" />
+                <ScalarProperty Name="No_Dokumen" ColumnName="No_Dokumen" />
+                <ScalarProperty Name="Id" ColumnName="Id" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Supplier">
+            <EntityTypeMapping TypeName="IsTypeOf(InventoryModel.Supplier)">
+              <MappingFragment StoreEntitySet="Supplier">
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Telepon" ColumnName="Telepon" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="Nama_Supplier" ColumnName="Nama_Supplier" />
+                <ScalarProperty Name="Kode_Supplier" ColumnName="Kode_Supplier" /></MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <AssociationSetMapping Name="FK_PenerimaanBarang_Barang" TypeName="InventoryModel.FK_PenerimaanBarang_Barang" StoreEntitySet="PenerimaanBarang">
+            <EndProperty Name="PenerimaanBarang">
+              <ScalarProperty Name="Id" ColumnName="Id" /></EndProperty>
+            <EndProperty Name="Barang">
+              <ScalarProperty Name="Kode_Barang" ColumnName="Kode_Barang" /></EndProperty></AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PengeluaranBarang_Barang" TypeName="InventoryModel.FK_PengeluaranBarang_Barang" StoreEntitySet="PengeluaranBarang">
+            <EndProperty Name="PengeluaranBarang">
+              <ScalarProperty Name="Id" ColumnName="Id" /></EndProperty>
+            <EndProperty Name="Barang">
+              <ScalarProperty Name="Kode_Barang" ColumnName="Kode_Barang" /></EndProperty></AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PengeluaranBarang_Customer" TypeName="InventoryModel.FK_PengeluaranBarang_Customer" StoreEntitySet="PengeluaranBarang">
+            <EndProperty Name="PengeluaranBarang">
+              <ScalarProperty Name="Id" ColumnName="Id" /></EndProperty>
+            <EndProperty Name="Customer">
+              <ScalarProperty Name="Kode_Customer" ColumnName="Kode_Customer" /></EndProperty></AssociationSetMapping>
+          <AssociationSetMapping Name="FK_PenerimaanBarang_Supplier" TypeName="InventoryModel.FK_PenerimaanBarang_Supplier" StoreEntitySet="PenerimaanBarang">
+            <EndProperty Name="PenerimaanBarang">
+              <ScalarProperty Name="Id" ColumnName="Id" /></EndProperty>
+            <EndProperty Name="Supplier">
+              <ScalarProperty Name="Kode_Supplier" ColumnName="Kode_Supplier" /></EndProperty></AssociationSetMapping></EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2007/06/edmx">
+    <edmx:Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+      </DesignerInfoPropertySet>
+    </edmx:Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram Name="Model1">
+        <EntityTypeShape EntityType="InventoryModel.Barang" Width="1.5" PointX="0.75" PointY="3.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="InventoryModel.Customer" Width="1.5" PointX="0.75" PointY="6.75" Height="2.1725878906250005" />
+        <EntityTypeShape EntityType="InventoryModel.PenerimaanBarang" Width="1.5" PointX="3" PointY="3.75" Height="2.1725878906249996" />
+        <EntityTypeShape EntityType="InventoryModel.PengeluaranBarang" Width="1.5" PointX="3" PointY="0.75" Height="2.172587890625" />
+        <EntityTypeShape EntityType="InventoryModel.Supplier" Width="1.5" PointX="0.75" PointY="0.75" Height="2.172587890625" />
+        <AssociationConnector Association="InventoryModel.FK_PenerimaanBarang_Barang" >
+          <ConnectorPoint PointX="2.25" PointY="4.8362939453125" />
+          <ConnectorPoint PointX="2.4166666666666665" PointY="4.8362939453124989" />
+          <ConnectorPoint PointX="2.5833333333333335" PointY="4.8362939453125" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="4.8362939453124989" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="4.8362939453125" />
+          <ConnectorPoint PointX="3" PointY="4.8362939453125" /></AssociationConnector>
+        <AssociationConnector Association="InventoryModel.FK_PengeluaranBarang_Barang" >
+          <ConnectorPoint PointX="2.25" PointY="4.2618949726562505" />
+          <ConnectorPoint PointX="2.4166666666666665" PointY="4.26189497265625" />
+          <ConnectorPoint PointX="2.5833333333333335" PointY="4.2618949726562505" />
+          <ConnectorPoint PointX="2.625" PointY="4.2618949726562505" />
+          <ConnectorPoint PointX="2.625" PointY="1.8362939453124998" />
+          <ConnectorPoint PointX="3" PointY="1.8362939453124998" /></AssociationConnector>
+        <AssociationConnector Association="InventoryModel.FK_PengeluaranBarang_Customer" >
+          <ConnectorPoint PointX="2.25" PointY="7.8362939453125" />
+          <ConnectorPoint PointX="2.75" PointY="7.8362939453125" />
+          <ConnectorPoint PointX="2.75" PointY="2.41069291796875" />
+          <ConnectorPoint PointX="3" PointY="2.41069291796875" /></AssociationConnector>
+        <AssociationConnector Association="InventoryModel.FK_PenerimaanBarang_Supplier" >
+          <ConnectorPoint PointX="2.25" PointY="2.37944041796875" />
+          <ConnectorPoint PointX="2.5" PointY="2.37944041796875" />
+          <ConnectorPoint PointX="2.5" PointY="5.4106929179687491" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="5.4106929179687482" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="5.4106929179687491" />
+          <ConnectorPoint PointX="3" PointY="5.4106929179687491" /></AssociationConnector></Diagram></edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
