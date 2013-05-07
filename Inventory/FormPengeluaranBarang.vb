@@ -189,7 +189,7 @@ Public Class FormPengeluaranBarang
     End Sub
 
     Private Sub OnCellJumlahEdit(ByVal sender As Object, ByVal e As KeyPressEventArgs)
-        If "X1234567890".IndexOf(e.KeyChar.ToString()) > 0 Then
+        If "X1234567890".IndexOf(e.KeyChar.ToString(), StringComparison.Ordinal) > 0 Then
             e.Handled = False
         Else
             e.Handled = True
